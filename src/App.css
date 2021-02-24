@@ -1,0 +1,39 @@
+.gridHolder, .heading {
+  display: flex;
+  justify-content: center;
+}
+
+.box  {
+  display: flex;
+  height : 100px;
+  width: 100px;
+  background-color: black;
+  border:4px ridge white;
+  box-sizing: border-box;
+  color:white;
+  justify-content: center;
+  align-items: center;
+  font-size: 5em;
+  padding-bottom: 10px;
+}
+
+.gridHolder {
+  display: grid;
+  grid-template-columns:100px 100px 100px;
+  
+}
+
+.winningScreen {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  top:0;
+  left:0;
+  background-color: rgba(0, 0, 0, 0.836);
+  color: white;
+  font-weight: 500;
+  font-size: 5rem;
+}

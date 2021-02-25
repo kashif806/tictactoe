@@ -1,13 +1,22 @@
-.gridHolder, .heading {
+.App, .gridHolder, .heading {
   display: flex;
   justify-content: center;
+}
+
+.center {
+  text-align: center;
+}
+
+.App {
+  background-color: #d21c17;
+  background-color: white;
 }
 
 .box  {
   display: flex;
   height : 100px;
   width: 100px;
-  background-color: black;
+  background-color:#966F33;
   border:4px ridge white;
   box-sizing: border-box;
   color:white;
@@ -25,6 +34,7 @@
 
 .winningScreen {
   display: flex;
+  flex-direction: column;
   height: 100vh;
   width: 100vw;
   position: fixed;
@@ -36,4 +46,22 @@
   color: white;
   font-weight: 500;
   font-size: 5rem;
+}
+
+.formContainer {
+  margin-top:40px;
+  background-color: rgb(30, 9, 107);
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-evenly; */
+  height:80vh;
+  color:white;
+}
+
+.form {
+  display: flex;
+  width: 80vh;
+  flex-direction: row;
+  /* alig: center; */
+  justify-content: center;
 }

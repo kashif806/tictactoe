@@ -1,29 +1,39 @@
 import React, { useState, useEffect } from "react";
 import Box from "./Box.js";
 
-function Grid() {
+function Grid({ player1, player2, setGameStart }) {
   const [winner, setWinner] = useState("");
+  const [msg, setMsg] = useState(`${player1.name}'s Turn`);
   const [gridValues, setGridValues] = useState([
     ["", "", ""],
     ["", "", ""],
     ["", "", ""],
   ]);
-  const [turn, setTurn] = useState("X");
+  const [turn, setTurn] = useState(() => player1.symbol);
   const changeTurn = () => {
     turn === "X" ? setTurn("O") : setTurn("X");
+    setMsg(() =>
+      turn === player1.symbol
+        ? `${player1.name}'s Turn`
+        : `${player2.name}'s Turn`
+    );
   };
   useEffect(() => {
+    console.log(player1, player2);
     checkWinner();
   }, [turn]);
 
   const checkWinner = () => {
-    checkForDraw() && setWinner("DRAW");
     console.log(checkForDraw());
     let row = checkValues("row");
     let col = checkValues("col");
     let d1 = checkValues("d1");
     let d2 = checkValues("d2");
-    (row || col || d1 || d2) && setWinner(() => (turn === "X" ? "O" : "X"));
+    if (row || col || d1 || d2) {
+      setWinner(() => (turn === "X" ? "O" : "X"));
+      return;
+    }
+    !winner && checkForDraw();
   };
   const checkForDraw = () => {
     for (let i = 0; i < gridValues.length; i++) {
@@ -31,7 +41,7 @@ function Grid() {
         if (!gridValues[i][j]) return false;
       }
     }
-    return true;
+    setWinner("DRAW");
   };
 
   const checkValues = (type) => {
@@ -88,7 +98,7 @@ function Grid() {
     return same;
   };
 
-  const updateGrid = (cord, value) => {
+  const updateGrid = (cord) => {
     let temp = gridValues;
     temp[cord.x][cord.y] = turn;
     setGridValues(temp);
@@ -96,7 +106,7 @@ function Grid() {
 
   return (
     <div>
-      <h1 className="heading">Grid</h1>
+      <h1 className="heading">Lets Play!!!</h1>
       <div className="gridHolder">
         {gridValues.map((row, i) =>
           row.map((value, j) => (
@@ -108,12 +118,30 @@ function Grid() {
             />
           ))
         )}
+        <div
+          style={{
+            fontSize: 2 + "rem",
+            color: "darkBlue",
+            width: 300 + "px",
+            marginTop: 20,
+          }}
+        >
+          {msg}
+        </div>
       </div>
       {winner ? (
         winner === "DRAW" ? (
-          <div className="winningScreen">Match Drawn!!!</div>
+          <div className="winningScreen">
+            Match Drawn!!!
+            <button onClick={() => setGameStart(false)}>Restart</button>
+          </div>
         ) : (
-          <div className="winningScreen">Player "{winner}" Wins!!!!! </div>
+          <div className="winningScreen">
+            {winner === player1.symbol
+              ? `${player1.name} Wins!!!!`
+              : `${player2.name} Wins!!!!`}
+            <button onClick={() => setGameStart(false)}>Restart</button>
+          </div>
         )
       ) : null}
     </div>
